@@ -14,16 +14,14 @@ export class MovieListComponent implements OnInit {
     this.inputEntrada = new FormControl({ value: null, required: true }, [Validators.pattern(/^\d+$/)]);
   }
 
-  search(value){
-    if(value && parseInt(value,0)){
-      fetch(`https://jsonmock.hackerrank.com/api/movies?Year=${parseInt(value, 0)}`)
+  search(){
+    const value = this.inputEntrada.value;
+    console.log('value:', value);
+    fetch(`https://jsonmock.hackerrank.com/api/movies?Year=${parseInt(value, 0)}`)
       .then((result:any)=>result.json())
       .then((json)=>{
-        console.log('json:', json)
         this.movies = json.data;
     })
-    }
-
   }
 
 }
