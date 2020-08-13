@@ -1,15 +1,16 @@
 <div class="layout-column align-items-center mt-50">
-  <section class="layout-row align-items-center justify-content-center">
-    <input type="number" class="large" placeholder="Enter Year eg 2015"
-           data-test-id="app-input"/>
-    <button class="" data-test-id="submit-button">Search</button>
-  </section>
+    <section class="layout-row align-items-center justify-content-center">
+        <input type="number" class="large" placeholder="Enter Year eg 2015" [formControl]="inputEntrada" data-test-id="app-input" />
+        <button class="" data-test-id="submit-button" (click)="search(inputEntrada.value)" (keyup.enter)="search(inputEntrada.value)" [disabled]="inputEntrada.invalid || inputEntrada.value == null" [ngClass]="{'inputDisabled': inputEntrada.invalid || inputEntrada.value == null}">Search</button>
+    </section>
 
+    <div *ngIf="movies && movies.length > 0">
+        <ul class="mt-50 styled" data-test-id="movieList" *ngFor="let movie of movies">
+            <li class="slide-up-fade-in py-10">{{movie.Title}}</li>
+        </ul>
+    </div>
 
-  <ul class="mt-50 styled" data-test-id="movieList">
-    <li class="slide-up-fade-in py-10"></li>
-  </ul>
-
-  <div class="mt-50 slide-up-fade-in"
-       data-test-id="no-result"></div>
+    <div *ngIf="movies && movies.length === 0" class="mt-50 slide-up-fade-in" data-test-id="no-result">
+        No Results Found
+    </div>
 </div>
